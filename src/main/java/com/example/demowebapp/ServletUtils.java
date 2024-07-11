@@ -14,6 +14,12 @@ public class ServletUtils {
         request.getRequestDispatcher(path).forward(request,response);
     }
 
+    public static void forwardJsp(final String path, final HttpServletRequest request,
+                               final HttpServletResponse response) throws ServletException, IOException {
+        System.out.println(new Date() + ". Forward to : " + path);
+        request.getRequestDispatcher(path + ".jsp").forward(request,response);
+    }
+
     public static void include(final String path, final String msg, final double result, final HttpServletRequest request,
                                final HttpServletResponse response) throws ServletException, IOException {
         System.out.println(new Date() + ". Include for : " + path);
