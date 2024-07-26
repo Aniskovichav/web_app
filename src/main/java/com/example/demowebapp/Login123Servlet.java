@@ -11,31 +11,41 @@ public class Login123Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Login page request " + new Date());
-        request.getRequestDispatcher("login.html").forward(request, response);
+        request.getRequestDispatcher("/html/login.html").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+
         String userName = request.getParameter("first");
         String userPwd = request.getParameter("password");
 
         // Check in DB
+        if(userName.equalsIgnoreCase("John")){
+            if(userPwd.equals("1234")){
+                String gender = request.getParameter("gender");
+                int age = Integer.valueOf(request.getParameter("age"));
+                if(age >= 18 && age <= 27){
+                    response.getWriter().println("Army =[");
+                }
+                if(gender.equalsIgnoreCase("male")){
+                    response.getWriter().println("Welcome back, mr " + userName);
+                } else {
+                    response.getWriter().println("Welcome back, ms " + userName);
+                }
 
-        if (userName.equalsIgnoreCase("John")) {
-            if (userPwd.equals("1234")) {
-                response.getWriter().println("Welcome back, dear " + userName);
-                return;
+                 return;
             } else {
                 // include
-                response.getWriter().println("</h2>Incorrect UserName or Password</h2>");
-                RequestDispatcher rd = request.getRequestDispatcher("/login");
+                response.getWriter().println("<h2>Incorrect UserName or Password</h2>");
+
+                RequestDispatcher rd =  request.getRequestDispatcher("/html/login.html");
                 rd.include(request, response);
+
                 return;
+
             }
-
         }
-
-
-
     }
 }

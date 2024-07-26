@@ -1,6 +1,6 @@
 package com.example.demowebapp;
 
-import com.example.demowebapp.model.User;
+import com.example.demowebapp.utils.ServletUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,9 +12,10 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if(request.getSession().getAttribute("user") != null) {
+        if (session.getAttribute("user") != null){
             session.invalidate();
-            System.out.println("Session with ID" + session.getId() + "has been invalidated");
+            System.out.println("Session with ID " + session.getId() + " has been invalidated");
+
             ServletUtils.forwardJsp("blog", request, response);
             return;
         } else {

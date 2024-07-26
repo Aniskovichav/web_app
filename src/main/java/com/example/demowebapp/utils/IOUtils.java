@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 
 
 public class IOUtils {
+
+
     public static String read(File file) throws FileNotFoundException {
 
         StringBuilder sb = new StringBuilder();
@@ -32,13 +34,13 @@ public class IOUtils {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        File f = new File("D:\\Aniskovich\\demo-web-app\\src\\main\\webapp\\index.html");
+        File f = new File("D:\\demo-web-app\\src\\main\\webapp\\index.html");
         String indexContent = read(f);
-        indexContent = indexContent.replace("${action.link}", "login");
+        indexContent = indexContent.replace("${action.link}", "login"); //
         indexContent = indexContent.replace("${action.name}", "Login");
         System.out.println(indexContent);
+
     }
 
 
 }
-

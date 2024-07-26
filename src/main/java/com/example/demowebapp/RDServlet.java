@@ -15,11 +15,11 @@ public class RDServlet extends HttpServlet {
 
         String val = Optional.ofNullable(request.getParameter("param")).orElse("empty");
 
-        if (val.equals("page_1")) {
-            RequestDispatcher rd = request.getRequestDispatcher("page_1.html");
+        if(val.equals("page_1")){
+            RequestDispatcher rd = request.getRequestDispatcher("/html/page_1.html");
             rd.forward(request, response);
         } else {
-            response.sendRedirect("https://www.nbrb.by/Sevices/XmlExRates.aspx");
+            response.sendRedirect("https://www.nbrb.by/Services/XmlExRates.aspx");
         }
 
 

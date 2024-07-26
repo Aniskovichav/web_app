@@ -10,31 +10,36 @@ public class DBUtils {
 
     public static Connection getConnection() {
         Connection connection = null;
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection(URL, USER, PASSWORD);
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-        throw new RuntimeException(e);
-    }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return connection;
     }
 
     public static void close(Connection conn, Statement stmt, PreparedStatement pstmt, ResultSet rs) {
         try {
-            if (conn != null) {
+            if(conn != null){
                 conn.close();
             }
-            if (stmt != null) {
+            if(stmt != null){
                 stmt.close();
             }
-            if (pstmt != null) {
+            if(rs != null){
+                rs.close();
+            }
+            if(pstmt != null){
                 pstmt.close();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        }
+
+
+    }
 }
+

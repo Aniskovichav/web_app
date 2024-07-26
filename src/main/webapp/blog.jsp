@@ -1,8 +1,9 @@
+<%@ page import="java.util.Objects" %>
 <%@ page import="com.example.demowebapp.model.User" %><%--
   Created by IntelliJ IDEA.
-  User: st
+  User: sharlan_a
   Date: 16.07.2024
-  Time: 21:08
+  Time: 21:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -75,6 +76,8 @@
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
+
+                            <h2>${msg}</h2>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
                                     <ul class="navbar-nav  ">
@@ -87,29 +90,31 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="class.html"> Classes </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="blog.html">Blog</a>
+                                        </li>
 
-                                        <!-- Check if user in HHTP Session -->
+                                        <!-- Check if user in HTTP Session-->
+
                                         <%
                                             Object object = session.getAttribute("user");
-                                            if (object == null){
-
+                                            if(object == null){
                                         %>
-
                                         <li class="nav-item">
                                             <a class="nav-link" href="login">Login</a>
                                         </li>
-                                        <%
-                                            } else {
-                                                User user = (User) object;
-                                        %>
-                                        <li class="nav-item">
-                                        <h4>Hello, <%=user.getName()%></h4>
-                                    </li>
 
+                                        <% } else {
+                                            User user = (User) object;
+                                          %>
+
+                                        <li class="nav-item">
+                                            <h4> Hello, <%=user.getName()%></h4>
+                                        </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="logout">Logout</a>
                                         </li>
-                                        <% } %>
+                                            <% } %>
 
                                     </ul>
                                     <form class="form-inline">

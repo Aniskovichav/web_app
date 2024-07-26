@@ -1,20 +1,24 @@
 package com.example.demowebapp;
 
-import com.example.demowebapp.utils.ServletUtils;
+import com.example.demowebapp.dao.UserDAO;
+import com.example.demowebapp.dao.UserDAOImpl;
+import com.example.demowebapp.services.CurrencySenderService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Date;
 
-@WebServlet(name = "BlogServlet", value = "/blog")
-public class BlogServlet extends HttpServlet {
+@WebServlet(name = "CurrenciesSenderServlet", value = "/send-currencies")
+public class CurrenciesSenderServlet extends HttpServlet {
+    UserDAO userDAO = new UserDAOImpl();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Blog page request " + new Date());
-
+        CurrencySenderService.sendCurrencies(userDAO.findAll());
+        request.setAttribute("msg", "Currencies has been send");
         ServletUtils.forwardJsp("blog", request, response);
+
     }
 
     @Override
