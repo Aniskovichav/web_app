@@ -34,7 +34,7 @@ public class IOUtils {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        File f = new File("D:\\demo-web-app\\src\\main\\webapp\\index.html");
+        File f = new File("D:\\demo-web-app\\src\\jobOne\\webapp\\index.html");
         String indexContent = read(f);
         indexContent = indexContent.replace("${action.link}", "login"); //
         indexContent = indexContent.replace("${action.name}", "Login");
