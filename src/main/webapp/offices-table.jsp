@@ -68,7 +68,7 @@
                 <td>
                     <c:out value="${offices.territory}"/>
                 </td>
-                
+
             </tr>
         </c:forEach>
     </table>
