@@ -49,11 +49,11 @@ public class ServletUtils {
         return Long.parseLong(request.getParameter(paramName));
     }
 
-    public User getUserInSession(final HttpServletRequest request) {
+    public static User getUserInSession(final HttpServletRequest request) {
         Optional<Object> userOpt = Optional.ofNullable(request.getSession().getAttribute("user"));
 
         if(userOpt.isPresent()){
-            return (User) request.getAttribute("user");
+            return (User) userOpt.get();
         }
         return null;
     }
