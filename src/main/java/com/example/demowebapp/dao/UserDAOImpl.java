@@ -13,6 +13,7 @@ import java.util.Set;
 public class UserDAOImpl implements UserDAO {
 
     public static final String Y = "Y";
+    private final RoleDAO roleDAO = new RoleDAOImpl();
 
     @Override
     public User findUserByEmail(String email) {
@@ -28,9 +29,12 @@ public class UserDAOImpl implements UserDAO {
                 user.setName(rs.getString(2));
                 user.setEmail(rs.getString(3));
                 user.setPassword(rs.getString(4));
-                user.setActive(rs.getString(5).equals(Y));
-                user.setCreatedTs(rs.getTimestamp(6));
-                user.setUpdatedTs(rs.getTimestamp(7));
+
+                int roleID = rs.getInt(5);
+                user.setRole(roleDAO.findRoleById(roleID));
+                user.setActive(rs.getString(6).equals(Y));
+                user.setCreatedTs(rs.getTimestamp(7));
+                user.setUpdatedTs(rs.getTimestamp(8));
                 return user;
             }
 
@@ -48,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean createUser(User user) {
         PreparedStatement pstmt = null;
         try (Connection conn = DBUtils.getConnection()) {
-            pstmt = conn.prepareStatement(String.format("INSERT INTO users (name, email, password) VALUES ('%s', '%s', '%s')"
+            pstmt = conn.prepareStatement(String.format("INSERT INTO users (name, email, password, role) VALUES ('%s', '%s', '%s', 3)"
                     , user.getName(), user.getEmail(), user.getPassword()));
 
         return pstmt.executeUpdate() == 1;

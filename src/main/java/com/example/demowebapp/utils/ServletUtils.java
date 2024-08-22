@@ -1,11 +1,14 @@
 package com.example.demowebapp.utils;
 
+import com.example.demowebapp.model.User;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
 
 public class ServletUtils {
 
@@ -46,4 +49,12 @@ public class ServletUtils {
         return Long.parseLong(request.getParameter(paramName));
     }
 
+    public User getUserInSession(final HttpServletRequest request) {
+        Optional<Object> userOpt = Optional.ofNullable(request.getSession().getAttribute("user"));
+
+        if(userOpt.isPresent()){
+            return (User) request.getAttribute("user");
+        }
+        return null;
+    }
 }

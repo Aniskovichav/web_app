@@ -1,5 +1,6 @@
 package com.example.demowebapp;
 
+import com.example.demowebapp.model.User;
 import com.example.demowebapp.utils.ServletUtils;
 
 import javax.servlet.*;
@@ -12,11 +13,21 @@ import java.util.Arrays;
 public class CarsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
-        //request.setAttribute("cars", Arrays.asList("BMW", "HONDA", "OPEL"));
-        ServletUtils.forwardJsp("cars-table", request, response);
+        User user = ServletUtils.getUserInSession(request);
 
-
+        if (user == null) {
+            request.setAttribute("msg", "You should login first");
+        } else if (!user.getRole().getName().equals("Admin")) {
+            request.setAttribute("msg", "You should have Admin role");
+            ServletUtils.forwardJsp("basic-msg", request, response);
+            return;
+        } else {
+            request.setAttribute("cars", Arrays.asList("BMW", "HONDA", "OPEL"));
+            ServletUtils.forwardJsp("cars-table", request, response);
+            return;
+        }
     }
 
     @Override

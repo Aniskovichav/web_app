@@ -3,6 +3,7 @@ package com.example.demowebapp;
 import com.example.demowebapp.dao.UserDAO;
 import com.example.demowebapp.dao.UserDAOImpl;
 import com.example.demowebapp.model.User;
+import com.example.demowebapp.utils.EncryptDecryptUtils;
 import com.example.demowebapp.utils.ServletUtils;
 import com.mysql.cj.Session;
 
@@ -38,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 
         User user = null;
         if ((user = userDAO.findUserByEmail(email)) != null) {
-            if (user.getPassword().equals(psw)) {
+            if (user.getPassword().equals(EncryptDecryptUtils.encrypt(psw))) {
 
                 if(!user.isActive()){
                     // ??
