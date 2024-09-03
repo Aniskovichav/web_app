@@ -1,6 +1,6 @@
 package com.example.demowebapp.test;
 
-import com.example.demowebapp.dao.impl.EmployeeDao;
+import com.example.demowebapp.dao.EmployeeDao;
 import com.example.demowebapp.db.JPAService;
 import com.example.demowebapp.db.config.JpaConfiguration;
 import com.example.demowebapp.entity.Employee;

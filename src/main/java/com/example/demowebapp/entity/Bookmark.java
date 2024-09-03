@@ -1,15 +1,17 @@
 package com.example.demowebapp.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Data
+@Entity (name = "Bookmark")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "Bookmark")
+@Table(name = "Bookmarks")
 public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

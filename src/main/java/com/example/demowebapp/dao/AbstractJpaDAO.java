@@ -1,4 +1,4 @@
-package com.example.demowebapp.db.config;
+package com.example.demowebapp.dao;
 
 import com.example.demowebapp.db.JPAService;
 
