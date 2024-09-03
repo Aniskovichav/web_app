@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 public abstract class AbstractJpaDAO<PK extends Serializable, T> implements AutoCloseable {
 
