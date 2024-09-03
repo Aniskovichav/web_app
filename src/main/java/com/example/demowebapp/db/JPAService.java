@@ -4,6 +4,7 @@ import com.example.demowebapp.db.config.JpaConfiguration;
 import com.example.demowebapp.exception.JpaException;
 import jakarta.persistence.*;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,8 @@ public class JPAService implements AutoCloseable {
         persistenceMap.put( JAKARTA_JDBC_USER, config.getUserName());
         persistenceMap.put( JAKARTA_JDBC_PASSWORD, config.getPassword());
 
-        entityManagerFactory = Persistence.createEntityManagerFactory(config.getPersistentUnit(), persistenceMap);
+//        EntityManagerFactory emf = SessionFactory
+//        entityManagerFactory = Persistence.createEntityManagerFactory(config.getPersistentUnit(), persistenceMap);
     }
 
     public static JPAService initialize(JpaConfiguration config) {
@@ -154,7 +156,7 @@ public class JPAService implements AutoCloseable {
         });
     }
 
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
 
