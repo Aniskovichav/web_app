@@ -78,11 +78,30 @@
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.6.15.Final</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+
+            <!-- Hibernate -->
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>6.2.2.Final</version>
+            </dependency>
+
+            <!-- Jakarta Servlet API -->
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>5.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- MySQL Connector -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.33</version>
+            </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
