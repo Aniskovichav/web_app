@@ -2,8 +2,10 @@ package com.example.demowebapp;
 
 import com.example.demowebapp.dao.UserDAO;
 import com.example.demowebapp.dao.UserDAOImpl;
-import com.example.demowebapp.services.CurrencySenderService;
+import com.example.demowebapp.services.CurrenciesSenderService;
+import com.example.demowebapp.services.quartz.CreateQuartzJob;
 import com.example.demowebapp.services.quartz.QuartzScheduler;
+import com.example.demowebapp.utils.ServletUtils;
 import org.apache.log4j.Logger;
 import org.quartz.SchedulerException;
 
@@ -14,31 +16,34 @@ import java.io.IOException;
 
 @WebServlet(name = "CurrenciesSenderServlet", value = "/send-currencies")
 public class CurrenciesSenderServlet extends HttpServlet {
-    UserDAO userDAO = new UserDAOImpl();
-    
-    private Logger log = org.apache.log4j.Logger.getLogger((CurrenciesSenderServlet .class));
+    private UserDAO userDAO =  new UserDAOImpl();
+
+    private Logger log = org.apache.log4j.Logger.getLogger(CurrenciesSenderServlet .class);
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
         HttpSession session = request.getSession();
         if(session.getAttribute("user") == null){
             request.setAttribute("msg", "You should login to perform such operation");
             ServletUtils.forwardJsp("login", request, response);
-
+            return;
         }
+
 
         String job = request.getParameter("job");
         String action = request.getParameter("action");
         String interval = request.getParameter("interval");
 
-        if(job.equals("1")){
-            if(action.equals("start")){
+        if( job.equals("1")){
+            if( action.equals("start")){
                 log.info("job #1 has been started via Servlet");
                 try {
-                    if (interval != null) {
+                    if(interval != null){
                         int i = Integer.parseInt(interval);
-                        if (i > 0 && i < 86400) {
+                        if(i > 0 && i < 3000){
                             QuartzScheduler.TIME_INTERVAL = i;
                         } else {
                             log.warn("Invalid TIME_INTERVAL " + i);
@@ -59,12 +64,10 @@ public class CurrenciesSenderServlet extends HttpServlet {
 
         } else {
             log.info("Common sender Servlet");
-            CurrencySenderService.sendCurrencies(userDAO.findAll());
+            CurrenciesSenderService.sendCurrencies(userDAO.findAll());
             request.setAttribute("msg", "Currencies has been send");
             ServletUtils.forwardJsp("blog", request, response);
         }
-
-
 
     }
 

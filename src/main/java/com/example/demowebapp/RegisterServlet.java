@@ -1,7 +1,8 @@
 package com.example.demowebapp;
 
 
-import com.example.demowebapp.dao.UserDAOImpl;
+import com.example.demowebapp.dao.UsersDao;
+import com.example.demowebapp.dao.impl.RolesDao;
 import com.example.demowebapp.model.User;
 import com.example.demowebapp.utils.EncryptDecryptUtils;
 import com.example.demowebapp.utils.MailUtils;
@@ -42,10 +43,14 @@ public class RegisterServlet extends HttpServlet {
             String encryptedPassword = EncryptDecryptUtils.encrypt(password);
             user.setPassword(encryptedPassword);
 
-            UserDAOImpl userDAO = new UserDAOImpl();
+            UsersDao usersDao = new UsersDao();
+            RolesDao rolesDao = new RolesDao();
 
             try {
-                boolean isCreated = userDAO.createUser(user);
+                user.setRole(rolesDao.findById(3));
+                usersDao.create(user);
+
+                boolean isCreated = usersDao.findUserByEmail(email) != null;
                 if (isCreated){
                     // just created - not active!
                     // send msg with instructions

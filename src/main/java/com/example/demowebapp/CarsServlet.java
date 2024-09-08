@@ -13,13 +13,14 @@ import java.util.Arrays;
 public class CarsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
 
+        // 1st in Session + 2nd has role Admin
         User user = ServletUtils.getUserInSession(request);
-
-        if (user == null) {
+        if(user == null){
             request.setAttribute("msg", "You should login first");
-        } else if (!user.getRole().getName().equalsIgnoreCase("Admin")) {
+            ServletUtils.forwardJsp("basic-msg", request, response);
+            return;
+        } else if(!user.getRole().getName().equalsIgnoreCase("Admin")){
             request.setAttribute("msg", "You should have Admin role");
             ServletUtils.forwardJsp("basic-msg", request, response);
             return;
@@ -28,6 +29,7 @@ public class CarsServlet extends HttpServlet {
             ServletUtils.forwardJsp("cars-table", request, response);
             return;
         }
+
     }
 
     @Override

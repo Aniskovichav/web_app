@@ -1,5 +1,6 @@
 package com.example.demowebapp.utils;
 
+import com.example.demowebapp.model.Office;
 import com.example.demowebapp.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -49,7 +50,7 @@ public class ServletUtils {
         return Long.parseLong(request.getParameter(paramName));
     }
 
-    public static User getUserInSession(final HttpServletRequest request) {
+    public static User getUserInSession(final HttpServletRequest request){
         Optional<Object> userOpt = Optional.ofNullable(request.getSession().getAttribute("user"));
 
         if(userOpt.isPresent()){
@@ -57,4 +58,5 @@ public class ServletUtils {
         }
         return null;
     }
+
 }

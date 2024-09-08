@@ -1,7 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.demowebapp.services.XMLCurrencyParser" %><%--
+<%@ page import="com.example.demowebapp.services.XMLCurrencyParser" %>
+<%@ page import="com.example.demowebapp.model.Office" %><%--
   Created by IntelliJ IDEA.
   User: sharlan_a
   Date: 11.07.2024
@@ -16,13 +17,12 @@
     <title>Offices</title>
 </head>
 <body>
-<!-- Declaration -->
-<c:set var="counter" scope="session" value="${0}"/>
-<!-- Scriptlet  -->
+
 
 <c:if test="${offices == null}">
-    <h3>No offices Found</h3>
+    <h3>No Offices Found</h3>
 </c:if>
+
 
 <c:if test="${offices != null}">
     <!-- Build table -->
@@ -37,36 +37,36 @@
             <th>COUNTRY</th>
             <th>POSTAL CODE</th>
             <th>TERRITORY</th>
-            <th>ACTION</th> <!--UPDATE, DELETE-->
+
         </tr>
         <c:forEach var="office" items="${offices}">
             <tr>
                 <td>
-                    <c:out value="${offices.officeCode}"/>
+                    <c:out value="${office.officeCode}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.city}"/>
+                    <c:out value="${office.city}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.phone}"/>
+                    <c:out value="${office.phone}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.addressLine1}"/>
+                    <c:out value="${office.addressLine1}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.addressLine2}"/>
+                    <c:out value="${office.addressLine2}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.state}"/>
+                    <c:out value="${office.state}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.country}"/>
+                    <c:out value="${office.country}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.postalCode}"/>
+                    <c:out value="${office.postalCode}"/>
                 </td>
                 <td>
-                    <c:out value="${offices.territory}"/>
+                    <c:out value="${office.territory}"/>
                 </td>
 
             </tr>

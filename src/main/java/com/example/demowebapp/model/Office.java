@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class Office {
-
     private int officeCode;
     private String city;
     private String phone;

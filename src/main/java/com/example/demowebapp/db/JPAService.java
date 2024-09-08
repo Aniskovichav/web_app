@@ -2,10 +2,10 @@ package com.example.demowebapp.db;
 
 import com.example.demowebapp.db.config.JpaConfiguration;
 import com.example.demowebapp.exception.JpaException;
-import jakarta.persistence.*;
+import com.example.demowebapp.utils.HibernateAnnotationUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,16 +13,14 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static java.lang.String.format;
-import static org.hibernate.cfg.JdbcSettings.*;
-
+import static org.hibernate.cfg.AvailableSettings.*;
 
 
 /**
  * Root JPA Service to interact with the database using persistence units.
- *<p><b>
+ * <p><b>
  * Note: Before using {@link #getInstance getInstance}, make sure that it's {@link #initialize initialized}
  * </b></p>
- *
  */
 public class JPAService implements AutoCloseable {
 
@@ -32,31 +30,29 @@ public class JPAService implements AutoCloseable {
     private static final String FROM_FORMAT = "FROM %s";
     private static final String FROM_WHERE_FORMAT = "FROM %s WHERE %s";
 
-    private JPAService(JpaConfiguration config) {
-        Map<String, String> persistenceMap = new HashMap<String, String>();
-
-        persistenceMap.put( JAKARTA_JDBC_DRIVER, config.getDriver());
-        persistenceMap.put( JAKARTA_JDBC_URL, config.getUrl());
-        persistenceMap.put( JAKARTA_JDBC_USER, config.getUserName());
-        persistenceMap.put( JAKARTA_JDBC_PASSWORD, config.getPassword());
-
-//        EntityManagerFactory emf = SessionFactory
-//        entityManagerFactory = Persistence.createEntityManagerFactory(config.getPersistentUnit(), persistenceMap);
+    private JPAService() {
+        entityManagerFactory = HibernateAnnotationUtil.getSessionFactory();
     }
 
-    public static JPAService initialize(JpaConfiguration config) {
+    public static JPAService initialize() {
         if (instance != null)
             throw new JpaException("JPAService already initialized.");
         synchronized (JPAService.class) {
             if (instance == null)
-                instance = new JPAService(config);
+                instance = new JPAService();
         }
         return instance;
     }
 
     public static JPAService getInstance() {
-        if (instance == null)
-            throw new JpaException("Initialize JPAService first.");
+
+        synchronized (JPAService.class) {
+            if (instance == null)
+                instance = new JPAService();
+        }
+//
+//        if (instance == null)
+//            throw new JpaException("Initialize JPAService first.");
         return instance;
     }
 
@@ -156,8 +152,10 @@ public class JPAService implements AutoCloseable {
         });
     }
 
-    public EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
 
 }
+
+

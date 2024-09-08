@@ -8,10 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
-public class RoleDAOImpl implements RoleDAO{
+public class RoleDaoImpl implements RoleDao {
+
     @Override
-    public Role findRoleById(int id) throws SQLException {
+    public Role findById(int id) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         Role role = null;

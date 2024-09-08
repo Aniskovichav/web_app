@@ -13,7 +13,7 @@ import java.util.Set;
 public class UserDAOImpl implements UserDAO {
 
     public static final String Y = "Y";
-    private final RoleDAO roleDAO = new RoleDAOImpl();
+    private final RoleDao roleDao = new RoleDaoImpl();
 
     @Override
     public User findUserByEmail(String email) {
@@ -31,7 +31,8 @@ public class UserDAOImpl implements UserDAO {
                 user.setPassword(rs.getString(4));
 
                 int roleID = rs.getInt(5);
-                user.setRole(roleDAO.findRoleById(roleID));
+                user.setRole(roleDao.findById(roleID));
+
                 user.setActive(rs.getString(6).equals(Y));
                 user.setCreatedTs(rs.getTimestamp(7));
                 user.setUpdatedTs(rs.getTimestamp(8));
@@ -89,8 +90,7 @@ public class UserDAOImpl implements UserDAO {
         Set<User> users = new HashSet<>();
         try (Connection conn = DBUtils.getConnection()) {
 
-
-            pstmt = conn.prepareStatement("SELECT * FROM users");
+            pstmt = conn.prepareStatement(String.format("SELECT * FROM users"));
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -98,15 +98,21 @@ public class UserDAOImpl implements UserDAO {
                 user.setName(rs.getString(2));
                 user.setEmail(rs.getString(3));
                 user.setPassword(rs.getString(4));
-                user.setActive(rs.getString(5).equals(Y));
-                user.setCreatedTs(rs.getTimestamp(6));
-                user.setUpdatedTs(rs.getTimestamp(7));
+
+
+                int roleID = rs.getInt(5);
+                user.setRole(roleDao.findById(roleID));
+
+                user.setActive(rs.getString(6).equals(Y));
+                user.setCreatedTs(rs.getTimestamp(7));
+                user.setUpdatedTs(rs.getTimestamp(8));
+
                 users.add(user);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("FindAllUser Exception", e);
+            throw new RuntimeException("FindAll Exception", e);
         } finally {
             DBUtils.close(null, null, pstmt, rs);
         }

@@ -70,7 +70,7 @@
 </head>
 <body>
 
-<h2>Registration</h2>
+<h2>Common page</h2>
 <h2 style="color: #c82333">${msg}</h2>
 
 <c:if test="${cause != null}">
@@ -84,10 +84,7 @@
   </details>
 </c:if>
 
-
-<a href="blog.html">
-  ???
-</a>
+<a href="blog.html">BLOG</a>
 
 </body>
 </html>

@@ -13,7 +13,7 @@ public class TemplateTestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        File f = new File("D:\\demo-web-app\\src\\jobOne\\webapp\\index.html");
+        File f = new File("D:\\demo-web-app\\src\\main\\webapp\\index.html");
         String indexContent = IOUtils.read(f);
 
         if(request.getParameter("user") != null){

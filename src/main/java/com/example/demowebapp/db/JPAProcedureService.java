@@ -1,14 +1,12 @@
-package com.example.demowebapp.db.config;
+package com.example.demowebapp.db;
 
 import java.util.Map;
 
-import jakarta.persistence.ParameterMode;
-import jakarta.persistence.PersistenceException;
-import jakarta.persistence.StoredProcedureQuery;
-
-import com.example.demowebapp.db.JPAService;
 import com.example.demowebapp.exception.JpaException;
-import jakarta.persistence.StoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceException;
+import javax.persistence.StoredProcedureQuery;
+
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ClassUtils;
 

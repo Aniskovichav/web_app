@@ -7,9 +7,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Entity(name="Employee")
-@Table(name="Employee") //  uniqueConstraints={@UniqueConstraint(columnNames={"ID"})}
-public class Employee {
+@Entity(name="Product")
+@Table(name="Products_v2") //  uniqueConstraints={@UniqueConstraint(columnNames={"ID"})}
+public class Product {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -19,8 +19,8 @@ public class Employee {
     @Column(name="NAME", length=20, nullable=true)
     private String name;
 
-    @Column(name="ROLE", length=20, nullable=true)
-    private String role;
+    @Column(name="descr", length=20, nullable=true)
+    private String descr;
 
     @Column(name="insert_time", nullable=true)
     private Date insertTime;

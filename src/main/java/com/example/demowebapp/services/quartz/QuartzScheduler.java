@@ -1,16 +1,15 @@
 package com.example.demowebapp.services.quartz;
 
-//import org.quartz.CronScheduleBuilder;
 import org.apache.log4j.BasicConfigurator;
+//import org.quartz.CronScheduleBuilder;
 import org.apache.log4j.Logger;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 
 public class QuartzScheduler {
-
-
-    public static int TIME_INTERVAL = 10;//by default
+    public static int TIME_INTERVAL = 10; // By default
+    private static Logger log = Logger.getLogger(QuartzScheduler.class);
     private static final String NAME_OF_JOB = "Job1";
     private static final String NAME_OF_GROUP = "group1";
     private static final String NAME_OF_TRIGGER = "triggerStart";
@@ -18,15 +17,13 @@ public class QuartzScheduler {
     //create variable scheduler of type Scheduler
     private static Scheduler scheduler;
 
-    private static Logger log = Logger.getLogger(CreateQuartzJob.class);
-
-    //jobOne() method starts with exception handling
+    //main() method starts with exception handling
     public static void jobOne() throws Exception {
 
         BasicConfigurator.configure();
 
-        //show message to know about the jobOne thread
-        System.out.println(" The name of the QuartzScheduler jobOne thread is: " + Thread.currentThread().getName());
+        //show message to know about the main thread
+        System.out.println(" The name of the QuartzScheduler main thread is: " + Thread.currentThread().getName());
 
         //initialize scheduler instance from Quartz
         scheduler = new StdSchedulerFactory().getScheduler();
@@ -46,15 +43,16 @@ public class QuartzScheduler {
 
     }
 
-    //create scheduleJob() method to schedule a job
-
     public static void stopJob() throws SchedulerException {
-        if (scheduler != null && scheduler.isStarted()) {
+        if(scheduler != null && scheduler.isStarted()){
             scheduler.shutdown(true);
         } else {
-            log.warn("Can't stop scheduler");
+            log.warn(" Can't stop scheduler ");
         }
+
     }
+
+    //create scheduleJob() method to schedule a job
     private static void scheduleJob(Trigger triggerNew) throws Exception {
 
         //create an instance of the JoDetails to connect Quartz job to the CreateQuartzJob
@@ -75,7 +73,7 @@ public class QuartzScheduler {
         Trigger triggerNew = TriggerBuilder.newTrigger().withIdentity(NAME_OF_TRIGGER, NAME_OF_GROUP)
                 .withSchedule(CronScheduleBuilder.cronSchedule(CRON_EXPRESSION)).build();
 
-        //return triggerNew to schedule it in jobOne() method
+        //return triggerNew to schedule it in main() method
         return triggerNew;
     }
     */
@@ -84,7 +82,6 @@ public class QuartzScheduler {
     private static Trigger createTrigger() {
 
         //initialize time interval
-//        int TIME_INTERVAL = 10;
 
         //create a trigger to be returned from the method
         Trigger triggerNew = TriggerBuilder.newTrigger().withIdentity(NAME_OF_TRIGGER, NAME_OF_GROUP)
@@ -92,11 +89,7 @@ public class QuartzScheduler {
                         SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(TIME_INTERVAL).repeatForever())
                 .build();
 
-        // triggerNew to schedule it in jobOne() method
+        // triggerNew to schedule it in main() method
         return triggerNew;
-    }
-
-    public static void setTimeInterval(int timeInterval) {
-        TIME_INTERVAL = timeInterval;
     }
 }

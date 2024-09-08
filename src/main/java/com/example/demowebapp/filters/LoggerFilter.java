@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 
-@WebFilter(filterName = "LoggerFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "LoggerFilter" , urlPatterns = {"/*"})
 public class LoggerFilter implements Filter {
-
 
 
 
@@ -21,9 +20,11 @@ public class LoggerFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        System.out.println(new Date() + "-> requested :" + request.getServletContext() + "/" + request.getServerName() + "/" + request.getServerPort());
-
-        System.out.println(new Date() + "-> requested :" + httpServletRequest.getServletPath() + "/" + httpServletRequest.getRequestedSessionId());
+        System.out.println(new Date() + " -> Requested :" + httpServletRequest.getServletContext() + " / "
+                + httpServletRequest.getServerName()
+                + " / " + httpServletRequest.getServerPort() );
+        System.out.println( httpServletRequest.getServletPath()
+                + " / " + httpServletRequest.getRequestedSessionId() );
         chain.doFilter(request, response);
     }
 }
