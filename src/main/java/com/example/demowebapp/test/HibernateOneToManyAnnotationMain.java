@@ -33,7 +33,7 @@ public class HibernateOneToManyAnnotationMain {
         cart.setItems(itemsSet);
 
         SessionFactory sessionFactory = HibernateAnnotationUtil.getSessionFactory();
-        EntityManagerFactory emf = sessionFactory;
+        EntityManagerFactory emf = (EntityManagerFactory) sessionFactory;
 
 
         Session session = sessionFactory.getCurrentSession();

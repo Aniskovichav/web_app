@@ -28,17 +28,17 @@ public class ActivateServlet extends HttpServlet {
             String email = EncryptDecryptUtils.decrypt(token);
 
             User user = userDAO.findUserByEmail(email);
-            if(user != null){
-                // User found & should be activated
-                boolean isActivated = userDAO.findUserByEmail(email); //TO DO
-                if(isActivated){
-                    request.setAttribute("msg", "WELCOME. YOU ARE ACTIVATED");
-                    ServletUtils.forwardJsp("blog", request, response);
-                    return;
-                }
+//            if(user != null){
+//                // User found & should be activated
+//                boolean isActivated = userDAO.findUserByEmail(email); //TO DO
+//                if(isActivated){
+//                    request.setAttribute("msg", "WELCOME. YOU ARE ACTIVATED");
+//                    ServletUtils.forwardJsp("blog", request, response);
+//                    return;
+//                }
             }
         }
-    }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

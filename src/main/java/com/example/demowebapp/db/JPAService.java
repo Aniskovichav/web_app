@@ -31,7 +31,7 @@ public class JPAService implements AutoCloseable {
     private static final String FROM_WHERE_FORMAT = "FROM %s WHERE %s";
 
     private JPAService() {
-        entityManagerFactory = HibernateAnnotationUtil.getSessionFactory();
+        entityManagerFactory = (EntityManagerFactory) HibernateAnnotationUtil.getSessionFactory();
     }
 
     public static JPAService initialize() {

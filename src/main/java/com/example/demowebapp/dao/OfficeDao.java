@@ -1,5 +1,6 @@
 package com.example.demowebapp.dao;
 
+import com.example.demowebapp.db.AbstractJpaDAO;
 import com.example.demowebapp.entity.Office;
 import com.example.demowebapp.utils.HibernateAnnotationUtil;
 import org.hibernate.Session;
@@ -7,7 +8,7 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class OfficeDao {
+public class OfficeDao extends AbstractJpaDAO<Integer, Office> {
 
     public void saveOffice(Office office) {
         Transaction transaction = null;
